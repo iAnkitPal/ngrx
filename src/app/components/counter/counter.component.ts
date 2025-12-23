@@ -1,8 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DECREMENT, INCREMENT, RESET } from '../../states/counter.actions';
+import { DECREMENT, INCREMENT, RESET, SETCOUNTVALUE } from '../../states/counter.actions';
 import { Observable } from 'rxjs';
+import { Count } from './counter.types';
+import { getCounter } from '../../states/counter.selector';
 
 @Component({
   selector: 'app-counter',
@@ -12,14 +14,9 @@ import { Observable } from 'rxjs';
   styleUrl: './counter.component.scss'
 })
 export class CounterComponent {
-  counter: Observable<{count:number}>;
-  constructor(private store: Store<{ counter: { count: number } }>) {
-    this.counter = this.store.select('counter');
-
-  }
-
-
-  getCount() {
+  counter: Observable<Count>;
+  constructor(private store: Store<{ counter: Count }>) {
+    this.counter = this.store.select(getCounter);
   }
 
   increment(): void {
@@ -30,5 +27,8 @@ export class CounterComponent {
   }
   reset(): void {
     this.store.dispatch(RESET());
+  }
+  set(v:string): void {
+    this.store.dispatch(SETCOUNTVALUE({value:+v}));
   }
 }

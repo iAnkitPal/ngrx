@@ -1,7 +1,14 @@
-<p>Count Value: {{(counter | async)?.count}}</p>
 
-<button type="button" (click)="increment()">Increment</button>
-<button type="button" (click)="decrement()">Decrement</button>
-<button type="button" (click)="reset()">Reset</button>
+
+<h4>Count Value: {{(counter | async)?.count}}</h4>
+
+<button type="button" class="btn btn-primary m-2" (click)="decrement()">Decrement</button>
+<button type="button" class="btn btn-secondary m-2" (click)="increment()">Increment</button>
+<button type="button" class="btn btn-danger m-2" (click)="reset()">Reset</button>
+<hr>
+<input #countInput type="number" class="form-control">
+<button type="button" class="btn btn-success m-2" (click)="set(countInput.value)">Set</button>
+
+
 
 
